@@ -5,7 +5,6 @@ import useSound from './hooks/useSound';
 import Header from './components/Header';
 import TaskInput from './components/TaskInput';
 import TaskList from './components/TaskList';
-import { breakdownTaskWithAI } from './services/geminiService';
 
 const sampleData: Task[] = [
     {
@@ -124,10 +123,10 @@ const App: React.FC = () => {
         }
     }, [setTasks]);
     
-    const handleAiBreakdown = useCallback(async (prompt: string) => {
-        const newTasks = await breakdownTaskWithAI(prompt);
-        setTasks(prevTasks => [...prevTasks, ...newTasks]);
-    }, [setTasks]);
+    // FIX: Changed signature to match TaskItem expectations (title, type, parentId)
+    const handleAddSubtask = useCallback((title: string, type: TaskType, parentId: string) => {
+        handleAddTask(title, type, parentId);
+    }, [handleAddTask]);
 
     const handleToggleComplete = useCallback((id: string, completed: boolean) => {
         const toggleChildren = (tasks: Task[], newCompleted: boolean): Task[] => {
@@ -249,7 +248,6 @@ const App: React.FC = () => {
                 <main>
                     <TaskInput
                         onAddTask={(title, type) => handleAddTask(title, type, null)}
-                        onAiBreakdown={handleAiBreakdown}
                     />
                     <TaskList
                         tasks={tasks}
@@ -257,7 +255,7 @@ const App: React.FC = () => {
                         onToggleCollapse={handleToggleCollapse}
                         onDelete={handleDelete}
                         onUpdate={handleUpdate}
-                        onAddSubtask={handleAddTask}
+                        onAddSubtask={handleAddSubtask}
                         onSetTimer={handleSetTimer}
                         onTimerControl={handleTimerControl}
                         onDragStart={handleDragStart}
