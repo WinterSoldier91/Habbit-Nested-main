@@ -9,7 +9,7 @@ interface TaskHandlers {
   onToggleCollapse: (id: string) => void;
   onDelete: (id: string) => void;
   onUpdate: (id: string, title: string, type: TaskType) => void;
-  onAddSubtask: (parentId: string, title: string, type: TaskType) => void;
+  onAddSubtask: (title: string, type: TaskType, parentId: string) => void;
   onSetTimer: (id: string, duration: number) => void;
   onTimerControl: (id: string, control: 'start' | 'pause' | 'reset' | 'extend') => void;
   onDragStart: (e: React.DragEvent, task: Task) => void;
@@ -26,7 +26,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, ...handlers }) => {
     return (
       <div className="text-center py-16 px-6 bg-slate-800/50 border border-slate-700 rounded-xl">
         <h3 className="text-xl font-semibold text-slate-400">No tasks yet!</h3>
-        <p className="text-slate-500 mt-2">Use the input above to add your first task or break down a goal with AI.</p>
+        <p className="text-slate-500 mt-2">Use the input above to add your first task.</p>
       </div>
     );
   }

@@ -12,7 +12,7 @@ interface TaskHandlers {
   onToggleCollapse: (id: string) => void;
   onDelete: (id: string) => void;
   onUpdate: (id: string, title: string, type: TaskType) => void;
-  onAddSubtask: (parentId: string, title: string, type: TaskType) => void;
+  onAddSubtask: (title: string, type: TaskType, parentId: string) => void;
   onSetTimer: (id: string, duration: number) => void;
   onTimerControl: (id: string, control: 'start' | 'pause' | 'reset' | 'extend') => void;
   onDragStart: (e: React.DragEvent, task: Task) => void;
@@ -204,7 +204,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, depth, ...handlers }) => {
             </div>
             
             {isEditing && <Editor isSubtask={false} onSave={(title, type) => handlers.onUpdate(task.id, title, type)} onCancel={() => setIsEditing(false)} task={task} />}
-            {isAddingSubtask && <Editor isSubtask={true} onSave={(title, type) => handlers.onAddSubtask(task.id, title, type)} onCancel={() => setIsAddingSubtask(false)} task={task} />}
+            {isAddingSubtask && <Editor isSubtask={true} onSave={(title, type) => handlers.onAddSubtask(title, type, task.id)} onCancel={() => setIsAddingSubtask(false)} task={task} />}
         </div>
         
         {!task.collapsed && task.children.length > 0 && (
