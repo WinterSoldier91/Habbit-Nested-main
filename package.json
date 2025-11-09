@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://akshayukey.github.io/Habbit-Nested-main",
+  "homepage": "https://wintersoldier91.github.io/Habbit-Nested-main",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
